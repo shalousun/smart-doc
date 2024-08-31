@@ -92,8 +92,8 @@ for(paramItem in param){
 
 ### ${dict.title}
 
-| Name   | Code | Type | Description |
-|-----|------|------|-------------|
+| Name | Code | Type | Description |
+|------|------|------|-------------|
 <% for(dataDict in dict.dataDictList){ %>
 |${dataDict.name}|${dataDict.value}|${dataDict.type}|${htmlEscape(dataDict.desc)}|
 <%}%>
