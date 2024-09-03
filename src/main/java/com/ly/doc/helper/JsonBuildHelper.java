@@ -522,6 +522,7 @@ public class JsonBuildHelper extends BaseHelper {
 						}
 						String gicName = fieldGicName.substring(fieldGicName.indexOf(",") + 1,
 								fieldGicName.indexOf(">"));
+
 						if (gicName.length() == 1) {
 							String gicName1 = "";
 							if (Objects.nonNull(genericMap.get(gicName))) {
@@ -553,11 +554,36 @@ public class JsonBuildHelper extends BaseHelper {
 							}
 						}
 						else {
-							data0.append("{")
-								.append("\"mapKey\":")
-								.append(buildJson(gicName, fieldGicName, isResp, nextLevel, registryClasses,
-										groupClasses, methodJsonViewClasses, builder))
-								.append("},");
+							String[] mapGicName = DocClassUtil.getSimpleGicName(fieldGicName);
+							// mock map key param
+							String mapKeySimpleName = mapGicName[0];
+							// get map key class
+							JavaClass mapKeyClass = builder.getJavaProjectBuilder().getClassByName(mapKeySimpleName);
+							if (mapKeyClass.isEnum()) {
+								data0.append("{");
+								List<JavaField> mapKeyClassFields = mapKeyClass.getFields();
+								int size = mapKeyClassFields.size();
+								for (int i = 0; i < size; i++) {
+									JavaField mapKeyField = mapKeyClassFields.get(i);
+									data0.append("\"")
+										.append(mapKeyField.getName())
+										.append("\":")
+										.append(buildJson(gicName, genericCanonicalName, isResp, counter + 1,
+												registryClasses, groupClasses, methodJsonViewClasses, builder));
+
+									if (i < size - 1) {
+										data0.append(",");
+									}
+								}
+								data0.append("},");
+							}
+							else {
+								data0.append("{")
+									.append("\"mapKey\":")
+									.append(buildJson(gicName, fieldGicName, isResp, nextLevel, registryClasses,
+											groupClasses, methodJsonViewClasses, builder))
+									.append("},");
+							}
 						}
 					}
 					else if (fieldGicName.length() == 1) {
