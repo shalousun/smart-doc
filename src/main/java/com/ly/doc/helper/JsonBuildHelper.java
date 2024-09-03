@@ -240,20 +240,8 @@ public class JsonBuildHelper extends BaseHelper {
 			}
 			else {
 				if (mapKeyIsEnum) {
-					data.append("{");
-					for (JavaField field : mapKeyClass.getFields()) {
-						data.append("\"")
-							.append(field.getName())
-							.append("\":")
-							.append(buildJson(gicName, genericCanonicalName, isResp, counter + 1, registryClasses,
-									groupClasses, methodJsonViewClasses, builder))
-							.append(",");
-					}
-					// Remove the trailing comma
-					if (data.charAt(data.length() - 1) == ',') {
-						data.deleteCharAt(data.length() - 1);
-					}
-					data.append("}");
+					data.append(buildJsonForEnumMapKey(mapKeyClass, gicName, genericCanonicalName, isResp, counter + 1,
+							registryClasses, groupClasses, methodJsonViewClasses, builder));
 				}
 				else {
 					data.append("{")
@@ -560,22 +548,8 @@ public class JsonBuildHelper extends BaseHelper {
 							// get map key class
 							JavaClass mapKeyClass = builder.getJavaProjectBuilder().getClassByName(mapKeySimpleName);
 							if (mapKeyClass.isEnum()) {
-								data0.append("{");
-								List<JavaField> mapKeyClassFields = mapKeyClass.getFields();
-								int size = mapKeyClassFields.size();
-								for (int i = 0; i < size; i++) {
-									JavaField mapKeyField = mapKeyClassFields.get(i);
-									data0.append("\"")
-										.append(mapKeyField.getName())
-										.append("\":")
-										.append(buildJson(gicName, genericCanonicalName, isResp, counter + 1,
-												registryClasses, groupClasses, methodJsonViewClasses, builder));
-
-									if (i < size - 1) {
-										data0.append(",");
-									}
-								}
-								data0.append("},");
+								data0.append(buildJsonForEnumMapKey(mapKeyClass, gicName, genericCanonicalName, isResp,
+										counter, registryClasses, groupClasses, methodJsonViewClasses, builder));
 							}
 							else {
 								data0.append("{")
@@ -667,6 +641,29 @@ public class JsonBuildHelper extends BaseHelper {
 		}
 		data0.append("}");
 		return data0.toString();
+	}
+
+	private static String buildJsonForEnumMapKey(JavaClass mapKeyClass, String gicName, String genericCanonicalName,
+			boolean isResp, int counter, Map<String, String> registryClasses, Set<String> groupClasses,
+			Set<String> methodJsonViewClasses, ProjectDocConfigBuilder builder) {
+
+		StringBuilder data = new StringBuilder("{");
+		List<JavaField> mapKeyClassFields = mapKeyClass.getFields();
+		int size = mapKeyClassFields.size();
+		for (int i = 0; i < size; i++) {
+			JavaField mapKeyField = mapKeyClassFields.get(i);
+			data.append("\"")
+				.append(mapKeyField.getName())
+				.append("\":")
+				.append(buildJson(gicName, genericCanonicalName, isResp, counter + 1, registryClasses, groupClasses,
+						methodJsonViewClasses, builder));
+
+			if (i < size - 1) {
+				data.append(",");
+			}
+		}
+		data.append("},");
+		return data.toString();
 	}
 
 }
