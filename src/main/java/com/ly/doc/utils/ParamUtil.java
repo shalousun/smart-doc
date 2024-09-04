@@ -52,7 +52,7 @@ public class ParamUtil {
 				javaField.getType().getGenericFullyQualifiedName())) {
 			param.setType(ParamTypeConstants.PARAM_TYPE_ENUM);
 		}
-		Object value = JavaClassUtil.getEnumValue(seeEnum, !jsonRequest);
+		Object value = JavaClassUtil.getEnumValue(seeEnum, builder, !jsonRequest);
 		param.setValue(StringUtil.removeDoubleQuotes(String.valueOf(value)));
 		param.setEnumValues(JavaClassUtil.getEnumValues(seeEnum));
 		param.setEnumInfo(JavaClassUtil.getEnumInfo(seeEnum, builder));

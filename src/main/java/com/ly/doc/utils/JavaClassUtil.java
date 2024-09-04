@@ -312,7 +312,7 @@ public class JavaClassUtil {
 	 * @param formDataEnum is return method
 	 * @return Object
 	 */
-	public static Object getEnumValue(JavaClass javaClass, boolean formDataEnum) {
+	public static Object getEnumValue(JavaClass javaClass, ProjectDocConfigBuilder builder, boolean formDataEnum) {
 		List<JavaField> javaFields = javaClass.getEnumConstants();
 		if (Objects.isNull(javaFields)) {
 			throw new RuntimeException(javaClass.getName() + " enum not existed");
@@ -331,6 +331,18 @@ public class JavaClassUtil {
 				}
 			}
 		}
+		if (Objects.nonNull(methodName)) {
+			ApiConfig apiConfig = builder.getApiConfig();
+			ClassLoader classLoader = apiConfig.getClassLoader();
+			Class<?> enumClass = null;
+			try {
+				enumClass = classLoader.loadClass(javaClass.getFullyQualifiedName());
+			}
+			catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			return EnumUtil.getFieldValueByMethod(enumClass, methodName);
+		}
 		Object value = null;
 		int index = 0;
 		for (JavaField javaField : javaFields) {
@@ -342,13 +354,7 @@ public class JavaClassUtil {
 				return value;
 			}
 			if (!JavaClassValidateUtil.isPrimitive(simpleName) && index < 1) {
-				if (CollectionUtil.isNotEmpty(javaField.getEnumConstantArguments()) && Objects.nonNull(methodName)) {
-					// enum serialize while use JsonValue
-					value = javaField.getEnumConstantArguments().get(0);
-				}
-				else {
-					value = valueBuilder.toString();
-				}
+				value = valueBuilder.toString();
 			}
 			index++;
 		}

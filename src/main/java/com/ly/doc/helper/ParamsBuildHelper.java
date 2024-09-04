@@ -520,7 +520,8 @@ public class ParamsBuildHelper extends BaseHelper {
 							if (!simpleName.equals(gName)) {
 								JavaClass arraySubClass = projectBuilder.getJavaProjectBuilder().getClassByName(gName);
 								if (arraySubClass.isEnum()) {
-									Object value = JavaClassUtil.getEnumValue(arraySubClass, Boolean.FALSE);
+									Object value = JavaClassUtil.getEnumValue(arraySubClass, projectBuilder,
+											Boolean.FALSE);
 									param.setValue("[\"" + value + "\"]")
 										.setEnumInfo(JavaClassUtil.getEnumInfo(arraySubClass, projectBuilder))
 										.setEnumValues(JavaClassUtil.getEnumValues(arraySubClass));

@@ -35,7 +35,7 @@ public class JsonHelper extends BaseHelper {
 		}
 
 		if (isEnumReturnType(method, responseBodyAdvice)) {
-			return StringUtil.removeQuotes(JavaClassUtil.getEnumValue(method.getReturns(), false).toString());
+			return StringUtil.removeQuotes(JavaClassUtil.getEnumValue(method.getReturns(), builder, false).toString());
 		}
 
 		if (isPrimitiveReturnType(method, responseBodyAdvice)) {
@@ -122,7 +122,7 @@ public class JsonHelper extends BaseHelper {
 
 		JavaClass javaClass = builder.getJavaProjectBuilder().getClassByName(typeName);
 		if (javaClass.isEnum()) {
-			return StringUtil.removeQuotes(JavaClassUtil.getEnumValue(javaClass, false).toString());
+			return StringUtil.removeQuotes(JavaClassUtil.getEnumValue(javaClass, builder, false).toString());
 		}
 
 		return buildJsonForType(typeName, genericCanonicalName, isResp, counter, registryClasses, groupClasses,
@@ -406,7 +406,7 @@ public class JsonHelper extends BaseHelper {
 			}
 			JavaClass arraySubClass = builder.getJavaProjectBuilder().getClassByName(gicName);
 			if (arraySubClass.isEnum()) {
-				return "[" + JavaClassUtil.getEnumValue(arraySubClass, false) + "]";
+				return "[" + JavaClassUtil.getEnumValue(arraySubClass, builder, false) + "]";
 			}
 			gicName = DocClassUtil.getSimpleName(gicName);
 			fieldGicName = DocUtil.formatFieldTypeGicName(new HashMap<>(), fieldGicName);

@@ -172,7 +172,7 @@ public class FormDataBuildHelper extends BaseHelper {
 				formDataList.add(formData);
 			}
 			else if (javaClass.isEnum()) {
-				Object value = JavaClassUtil.getEnumValue(javaClass, Boolean.TRUE);
+				Object value = JavaClassUtil.getEnumValue(javaClass, builder, Boolean.TRUE);
 				if (tagsMap.containsKey(DocTags.MOCK) && StringUtil.isNotEmpty(tagsMap.get(DocTags.MOCK))) {
 					value = ParamUtil.formatMockValue(tagsMap.get(DocTags.MOCK));
 				}

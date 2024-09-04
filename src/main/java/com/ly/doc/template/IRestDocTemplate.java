@@ -1064,7 +1064,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 				}
 				JavaClass gicJavaClass = builder.getJavaProjectBuilder().getClassByName(gicName);
 				if (gicJavaClass.isEnum()) {
-					Object value = JavaClassUtil.getEnumValue(gicJavaClass, Boolean.TRUE);
+					Object value = JavaClassUtil.getEnumValue(gicJavaClass, builder, Boolean.TRUE);
 					ApiParam param = ApiParam.of()
 						.setField(paramName)
 						.setDesc(comment + ",[array of enum]")
@@ -1209,7 +1209,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 			// param is enum
 			else if (javaClass.isEnum()) {
 				String enumName = JavaClassUtil.getEnumParams(javaClass);
-				Object value = JavaClassUtil.getEnumValue(javaClass, isPathVariable || queryParam);
+				Object value = JavaClassUtil.getEnumValue(javaClass, builder, isPathVariable || queryParam);
 				if (Boolean.TRUE.equals(builder.getApiConfig().getInlineEnum())) {
 					comment.append("<br/>[Enum: ").append(StringUtil.removeQuotes(enumName)).append("]");
 				}
@@ -1399,7 +1399,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 					.getAnnotationName()
 					.contains(annotationName)) {
 					if (javaClass.isEnum()) {
-						Object value = JavaClassUtil.getEnumValue(javaClass, Boolean.TRUE);
+						Object value = JavaClassUtil.getEnumValue(javaClass, configBuilder, Boolean.TRUE);
 						mockValue = StringUtil.removeQuotes(String.valueOf(value));
 					}
 					if (pathParamsMap.containsKey(paramName)) {
@@ -1412,7 +1412,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 					.getAnnotationName()
 					.contains(annotationName)) {
 					if (javaClass.isEnum()) {
-						Object value = JavaClassUtil.getEnumValue(javaClass, Boolean.TRUE);
+						Object value = JavaClassUtil.getEnumValue(javaClass, configBuilder, Boolean.TRUE);
 						mockValue = StringUtil.removeQuotes(String.valueOf(value));
 					}
 					if (queryParamsMap.containsKey(paramName)) {
@@ -1486,7 +1486,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 				String value;
 				JavaClass javaClass1 = configBuilder.getClassByName(gicName);
 				if (Objects.nonNull(javaClass1) && javaClass1.isEnum()) {
-					value = String.valueOf(JavaClassUtil.getEnumValue(javaClass1, Boolean.TRUE));
+					value = String.valueOf(JavaClassUtil.getEnumValue(javaClass1, configBuilder, Boolean.TRUE));
 				}
 				else {
 					value = RandomUtil.randomValueByType(gicName);
@@ -1503,7 +1503,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 			}
 			else if (javaClass.isEnum()) {
 				// do nothing
-				Object value = JavaClassUtil.getEnumValue(javaClass, Boolean.TRUE);
+				Object value = JavaClassUtil.getEnumValue(javaClass, configBuilder, Boolean.TRUE);
 				String strVal = StringUtil.removeQuotes(String.valueOf(value));
 				FormData formData = new FormData();
 				formData.setKey(paramName);

@@ -59,7 +59,7 @@ public class JsonBuildHelper extends BaseHelper {
 		}
 		if (method.getReturns().isEnum() && Objects.isNull(responseBodyAdvice)) {
 			return StringUtil
-				.removeQuotes(String.valueOf(JavaClassUtil.getEnumValue(method.getReturns(), Boolean.FALSE)));
+				.removeQuotes(String.valueOf(JavaClassUtil.getEnumValue(method.getReturns(), builder, Boolean.FALSE)));
 		}
 		if (method.getReturns().isPrimitive() && Objects.isNull(responseBodyAdvice)) {
 			String typeName = method.getReturnType().getCanonicalName();
@@ -150,7 +150,8 @@ public class JsonBuildHelper extends BaseHelper {
 
 		// Handle enum types
 		if (javaClass.isEnum()) {
-			return StringUtil.removeQuotes(String.valueOf(JavaClassUtil.getEnumValue(javaClass, Boolean.FALSE)));
+			return StringUtil
+				.removeQuotes(String.valueOf(JavaClassUtil.getEnumValue(javaClass, builder, Boolean.FALSE)));
 		}
 
 		StringBuilder data0 = new StringBuilder();
@@ -481,7 +482,7 @@ public class JsonBuildHelper extends BaseHelper {
 								}
 								JavaClass arraySubClass = builder.getJavaProjectBuilder().getClassByName(gicName);
 								if (arraySubClass.isEnum()) {
-									Object value = JavaClassUtil.getEnumValue(arraySubClass, Boolean.FALSE);
+									Object value = JavaClassUtil.getEnumValue(arraySubClass, builder, Boolean.FALSE);
 									data0.append("[").append(value).append("],");
 									continue;
 								}
@@ -603,7 +604,7 @@ public class JsonBuildHelper extends BaseHelper {
 							// if has Annotation @JsonSerialize And using
 							// ToStringSerializer && isResp
 							else if (toStringSerializer && isResp) {
-								Object value = JavaClassUtil.getEnumValue(javaClass, Boolean.FALSE);
+								Object value = JavaClassUtil.getEnumValue(javaClass, builder, Boolean.FALSE);
 								data0.append(value).append(",");
 							}
 							// if has @JsonFormat
@@ -611,7 +612,7 @@ public class JsonBuildHelper extends BaseHelper {
 								data0.append(jsonFormatString).append(",");
 							}
 							else {
-								Object value = JavaClassUtil.getEnumValue(javaClass, Boolean.FALSE);
+								Object value = JavaClassUtil.getEnumValue(javaClass, builder, Boolean.FALSE);
 								data0.append(value).append(",");
 							}
 						}
