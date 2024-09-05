@@ -17,3 +17,6 @@ spring-javaformat-validate:
 
 spring-javaformat-apply:
 	mvn spring-javaformat:apply
+
+install: spring-javaformat-apply
+	mvn clean install -DskipTests

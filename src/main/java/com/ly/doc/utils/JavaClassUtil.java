@@ -307,10 +307,18 @@ public class JavaClassUtil {
 	}
 
 	/**
-	 * get enum value
-	 * @param javaClass enum class
-	 * @param formDataEnum is return method
-	 * @return Object
+	 * Get the value of an enum
+	 *
+	 * This method retrieves the value of an enum based on its fields or methods. It
+	 * supports loading the enum class via reflection and determines the enum value based
+	 * on the presence of specific annotations such as JsonValue and JsonCreator.
+	 * @param javaClass The JavaClass object representing the enum class
+	 * @param builder A ProjectDocConfigBuilder object used to retrieve API configuration
+	 * and the class loader
+	 * @param formDataEnum A boolean indicating whether it is a form data enum, which
+	 * affects the logic for retrieving enum values
+	 * @return Object The enum value, whose type depends on the specific enum definition
+	 * @throws RuntimeException If the enum constants do not exist
 	 */
 	public static Object getEnumValue(JavaClass javaClass, ProjectDocConfigBuilder builder, boolean formDataEnum) {
 		List<JavaField> javaFields = javaClass.getEnumConstants();
@@ -331,12 +339,17 @@ public class JavaClassUtil {
 				}
 			}
 		}
-		if (Objects.nonNull(methodName)) {
+		if (Objects.nonNull(methodName) && !formDataEnum) {
 			ApiConfig apiConfig = builder.getApiConfig();
 			ClassLoader classLoader = apiConfig.getClassLoader();
 			Class<?> enumClass = null;
 			try {
-				enumClass = classLoader.loadClass(javaClass.getFullyQualifiedName());
+				if (Objects.nonNull(classLoader)) {
+					enumClass = classLoader.loadClass(javaClass.getFullyQualifiedName());
+				}
+				else {
+					enumClass = Class.forName(javaClass.getFullyQualifiedName());
+				}
 			}
 			catch (ClassNotFoundException e) {
 				e.printStackTrace();
