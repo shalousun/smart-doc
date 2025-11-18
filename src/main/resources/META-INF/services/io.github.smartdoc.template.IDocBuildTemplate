@@ -1,0 +1,6 @@
+io.github.smartdoc.template.SpringBootDocBuildTemplate
+io.github.smartdoc.template.JAXRSDocBuildTemplate
+io.github.smartdoc.template.JavadocDocBuildTemplate
+io.github.smartdoc.template.RpcDocBuildTemplate
+io.github.smartdoc.template.SolonDocBuildTemplate
+io.github.smartdoc.template.GRpcDocBuildTemplate

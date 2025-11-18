@@ -65,7 +65,7 @@ jobs:
       - name: Checkout Maven Plugin Repository
         uses: actions/checkout@v5
         with:
-          repository: TongchengOpenSource/smart-doc-maven-plugin
+          repository: smart-doc-group/smart-doc-maven-plugin
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up JDK 8
