@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.repository == 'TongchengOpenSource/smart-doc' }}
+    if: ${{ github.repository == 'smart-doc-group/smart-doc' }}
     runs-on: ubuntu-latest
 
     steps:

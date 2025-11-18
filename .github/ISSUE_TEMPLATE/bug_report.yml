@@ -15,7 +15,7 @@ body:
         or are unsure if this is really a bug, make sure to:
         
         - Read the [docs](https://smart-doc-group.github.io/)
-        - Ask on [GitHub Discussions](https://github.com/TongchengOpenSource/smart-doc/discussions)
+        - Ask on [GitHub Discussions](https://github.com/smart-doc-group/smart-doc/discussions)
         - If you use the version is not the latest version, please upgrade to the latest version and try again!
 
 
@@ -29,7 +29,7 @@ body:
         
         - 请采用<mark style="background-color: yellow;">英文</mark>填写，包括issue标题，不符合要求会被关闭和清理。
         - 阅读 [文档](https://smart-doc-group.github.io/)
-        - 在 [GitHub Discussions](https://github.com/TongchengOpenSource/smart-doc/discussions) 上询问
+        - 在 [GitHub Discussions](https://github.com/smart-doc-group/smart-doc/discussions) 上询问
         - 如果您使用的版本不是最新版本，请升级到最新版本后再试！
         
 
@@ -130,7 +130,7 @@ body:
       label: Validations
       description: Before submitting the issue, please make sure you do the following (在提交问题之前，请确保执行以下操作)
       options:
-        - label: Check if you're on the [latest smart-doc version](https://github.com/TongchengOpenSource/smart-doc/releases/latest). (请检查是否为最新版本)
+        - label: Check if you're on the [latest smart-doc version](https://github.com/smart-doc-group/smart-doc/releases/latest). (请检查是否为最新版本)
           required: true
         - label: Read the [docs](https://smart-doc-group.github.io/). (请先阅读官方文档)
           required: true

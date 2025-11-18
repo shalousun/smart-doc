@@ -93,9 +93,7 @@ file for details.
 
 ## Contact
 
-Email： opensource@ly.com
+Email： 836575280@qq.com
 
 Twitter：https://x.com/shalousun
 
-## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=TongchengOpenSource/smart-doc&type=Date)](https://star-history.com/#TongchengOpenSource/smart-doc&Date)
