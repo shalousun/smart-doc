@@ -97,3 +97,19 @@ Email： 836575280@qq.com
 
 Twitter：https://x.com/shalousun
 
+
+If you're based in China, feel free to scan the QR code to join our community QQ group. You're also welcome to follow my personal WeChat Official Account for technical content on Java, Go (Goland), Rust, AI, and more!
+<div style="display: flex; flex-wrap: wrap;">
+    <div style="margin-right: 10px;">
+        <figure>
+        <img src="https://github.com/smart-doc-group/smart-doc/raw/master/images/smart-doc-qq.png" title="QQ群2" width="200px" 
+height="200px"/>
+        <figcaption style="text-align: center;">社区QQ群</figcaption>
+        </figure>
+    </div>
+</div>
+
+
+Chinese users are welcome to follow my WeChat Official Account!
+
+<img src="https://github.com/smart-doc-group/smart-doc/raw/master/images/WeChat-Official-Account.png" style="width: 50%; height: 50%" />

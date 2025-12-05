@@ -104,17 +104,11 @@ the [LICENSE](https://gitee.com/smart-doc-team/smart-doc/blob/master/LICENSE) fi
 
 ## Contact
 
-愿意参与构建`smart-doc`或者是需要交流问题可以扫描微信二维码发送`smart-doc`备注信息后管理员拉进群，[常见问题答疑](https://smart-doc-group.github.io/zh/guide/faq/faq)
+愿意参与构建`smart-doc`或者是需要交流问题可以扫描社区QQ群[常见问题答疑](https://smart-doc-group.github.io/zh/guide/faq/faq)
 <div style="display: flex; flex-wrap: wrap;">
     <div style="margin-right: 10px;">
-      <figure>
-        <img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/wechat.png" title="微信群" width="200px" height="200px"/>
-        <figcaption style="text-align: center;">社区管理员微信</figcaption>
-      </figure>
-    </div>
-    <div style="margin-right: 10px;">
         <figure>
-        <img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/smart-doc-qq2.jpeg" title="QQ群2" width="200px" 
+        <img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/smart-doc-qq.png" title="QQ群" width="200px" 
 height="200px"/>
         <figcaption style="text-align: center;">社区QQ群</figcaption>
         </figure>
@@ -122,7 +116,7 @@ height="200px"/>
 </div>
 
 
-关注微信公众号，了解社区动态和更多技术分享
+也欢迎关注我的个人公众号，获取 Java、Go（Goland）、Rust、AI 等领域的技术分享。
 
 <img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/WeChat-Official-Account.png" style="width: 50%; height: 50%" />
 
