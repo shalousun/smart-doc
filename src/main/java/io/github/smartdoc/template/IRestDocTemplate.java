@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2025 smart-doc
+ * Copyright (C) 2018-2026 smart-doc
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -1109,19 +1109,22 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 				}
 				required = Boolean.parseBoolean(strRequired);
 			}
-			// not get and delete method and has MediaType
-			boolean bodyMediaType = !Methods.GET.getValue().equals(docJavaMethod.getMethodType())
-					&& StringUtil.isNotEmpty(methodMediaType)
-					&& (MediaType.APPLICATION_FORM_URLENCODED_VALUE.equals(methodMediaType)
-							|| MediaType.APPLICATION_JSON_VALUE.equals(methodMediaType)
-							|| MediaType.MULTIPART_FORM_DATA_VALUE.equals(methodMediaType));
-			if (bodyMediaType) {
-				apiParamEnum = ApiParamEnum.BODY;
-			}
 			// If the parameter is not in the request body, it is a query parameter
 			// Fixed issue #965
 			if (apiParamEnum == null && (!requestBodyParam.isEmpty() && !requestBodyParam.contains(apiParameter))) {
 				apiParamEnum = ApiParamEnum.QUERY;
+			}
+			// not get and delete method and has MediaType
+			// Only apply bodyMediaType if apiParamEnum is still null (no explicit
+			// annotation was used)
+			boolean bodyMediaType = !(Methods.GET.getValue().equals(docJavaMethod.getMethodType())
+					|| Methods.DELETE.getValue().equals(docJavaMethod.getMethodType()))
+					&& StringUtil.isNotEmpty(methodMediaType)
+					&& (MediaType.APPLICATION_FORM_URLENCODED_VALUE.equals(methodMediaType)
+							|| MediaType.APPLICATION_JSON_VALUE.equals(methodMediaType)
+							|| MediaType.MULTIPART_FORM_DATA_VALUE.equals(methodMediaType));
+			if (bodyMediaType && apiParamEnum == null) {
+				apiParamEnum = ApiParamEnum.BODY;
 			}
 			boolean isQueryParam = ApiParamEnum.QUERY.equals(apiParamEnum);
 			boolean isPathVariable = ApiParamEnum.PATH.equals(apiParamEnum);
