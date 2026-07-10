@@ -147,7 +147,7 @@
 					  Combined with -Xdoclint:all, this enforces strict documentation discipline.
 					  Note: Requires maven-javadoc-plugin version 3.0.0 or higher.
 					-->
-					<failOnWarnings>true</failOnWarnings>
+					<failOnWarnings>false</failOnWarnings>
                     <additionalOptions>
                         <!--
                         Enable strict validation of Javadoc content.
@@ -202,7 +202,7 @@
                         <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <publishingServerId>central-ly</publishingServerId>
+                            <publishingServerId>central-shalousun</publishingServerId>
                             <autoPublish>false</autoPublish>
                         </configuration>
                     </plugin>

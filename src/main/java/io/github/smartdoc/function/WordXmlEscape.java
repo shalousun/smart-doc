@@ -63,7 +63,7 @@ public class WordXmlEscape implements Function {
 			xml = xml.replaceAll(entry.getKey(), entry.getValue());
 		}
 
-		return DocUtil.getEscapeAndCleanComment(xml);
+		return xml;
 	}
 
 }

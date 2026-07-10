@@ -64,7 +64,6 @@ public class HtmlEscape implements Function {
 			html = html.replace(entry.getKey(), entry.getValue());
 		}
 
-		html = DocUtil.getEscapeAndCleanComment(html);
 		return DocUtil.replaceNewLineToHtmlBr(html);
 	}
 
