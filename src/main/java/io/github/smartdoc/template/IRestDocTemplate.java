@@ -1054,7 +1054,10 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 				}
 				if (frameworkAnnotations.getRequestParamAnnotation().getAnnotationName().equals(annotationName)
 						|| frameworkAnnotations.getPathVariableAnnotation().getAnnotationName().equals(annotationName)
-						|| frameworkAnnotations.getRequestPartAnnotation().getAnnotationName().equals(annotationName)) {
+						|| (frameworkAnnotations.getRequestPartAnnotation() != null
+								&& frameworkAnnotations.getRequestPartAnnotation()
+									.getAnnotationName()
+									.equals(annotationName))) {
 					String defaultValueProp = DocAnnotationConstants.DEFAULT_VALUE_PROP;
 					String requiredProp = DocAnnotationConstants.REQUIRED_PROP;
 					// RequestParam annotation
@@ -1072,9 +1075,10 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 						apiParamEnum = ApiParamEnum.PATH;
 					}
 					// RequestPart annotation
-					else if (frameworkAnnotations.getRequestPartAnnotation()
-						.getAnnotationName()
-						.equals(annotationName)) {
+					else if (frameworkAnnotations.getRequestPartAnnotation() != null
+							&& frameworkAnnotations.getRequestPartAnnotation()
+								.getAnnotationName()
+								.equals(annotationName)) {
 						requiredProp = frameworkAnnotations.getRequestPartAnnotation().getRequiredProp();
 						isRequestPart = true;
 						mockValue = JsonBuildHelper.buildJson(fullyQualifiedName, typeName, Boolean.FALSE, 0,
@@ -1518,7 +1522,10 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 					paramAdded = true;
 				}
 				// RequestPart annotation
-				else if (frameworkAnnotations.getRequestPartAnnotation().getAnnotationName().contains(annotationName)) {
+				else if (frameworkAnnotations.getRequestPartAnnotation() != null
+						&& frameworkAnnotations.getRequestPartAnnotation()
+							.getAnnotationName()
+							.contains(annotationName)) {
 					if (!JavaClassValidateUtil.isFile(gicTypeName)) {
 						apiMethodDoc.setContentType(MediaType.MULTIPART_FORM_DATA);
 						FormData formData = new FormData();
