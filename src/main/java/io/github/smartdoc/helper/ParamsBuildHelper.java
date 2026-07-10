@@ -741,10 +741,16 @@ public class ParamsBuildHelper extends BaseHelper {
 				paramList.add(apiParam);
 				// in foreach, need remove enum class in registry
 				registryClasses.remove(valueSimpleName);
-				List<ApiParam> apiParams = addValueParams(valueSimpleName, globGicName, level, isRequired, isResp,
-						registryClasses, projectBuilder, groupClasses, jsonViewClasses, apiParam.getId(), jsonRequest,
-						nextLevel, atomicInteger);
-				paramList.addAll(apiParams);
+				// Handle generic object types
+				if (JavaTypeConstants.JAVA_OBJECT_FULLY.equals(valueSimpleName)) {
+					paramList.addAll(buildGenericObjectParam(valueSimpleName, pre, isRequired, atomicInteger, pid));
+				}
+				else {
+					List<ApiParam> apiParams = addValueParams(valueSimpleName, globGicName, level, isRequired, isResp,
+							registryClasses, projectBuilder, groupClasses, jsonViewClasses, apiParam.getId(),
+							jsonRequest, nextLevel, atomicInteger);
+					paramList.addAll(apiParams);
+				}
 			}
 			return paramList;
 		}

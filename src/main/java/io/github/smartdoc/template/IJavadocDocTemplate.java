@@ -193,10 +193,21 @@ public interface IJavadocDocTemplate<T extends JavadocJavaMethod> extends IBaseD
 	 */
 	default List<T> getParentsClassAndInterfaceMethods(ApiConfig apiConfig, JavaClass cls) {
 		return this.processClassHierarchy(cls, currentClass -> {
+			// Skip the starting class — its methods are already handled in
+			// buildServiceMethod
+			if (currentClass.equals(cls)) {
+				return new ArrayList<>();
+			}
 			List<T> docJavaMethods = new ArrayList<>();
 			Map<String, JavaType> actualTypesMap = JavaClassUtil.getActualTypesMap(currentClass);
 			List<JavaMethod> methodList = currentClass.getMethods();
 			for (JavaMethod method : methodList) {
+				if (method.isPrivate()) {
+					continue;
+				}
+				if (Objects.nonNull(method.getTagByName(IGNORE))) {
+					continue;
+				}
 				docJavaMethods.add(this.convertToJavadocJavaMethod(apiConfig, method, actualTypesMap));
 			}
 			return docJavaMethods;
