@@ -43,7 +43,7 @@ jobs:
 
       - name: Upload Artifact
         id: upload-artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: smart-doc-maven-jar
           path: ~/.m2/repository/com/ly/smart-doc
@@ -51,7 +51,7 @@ jobs:
 
       - name: Upload Build Log
         if: failure()  # Only run if previous steps fail
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: error-log-smart-doc-build
           path: logs/build.log
@@ -80,7 +80,7 @@ jobs:
         run: mkdir -p logs
 
       - name: Download Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: smart-doc-maven-jar
           path: ./artifacts
@@ -107,7 +107,7 @@ jobs:
 
       - name: Upload Plugin Artifact
         id: upload-artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: smart-doc-maven-plugin-jar
           path: ~/.m2/repository/com/ly/smart-doc
@@ -115,7 +115,7 @@ jobs:
 
       - name: Upload Plugin Build Log
         if: failure() # Only run if previous steps fail
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: error-log-maven-plugin-build
           path: logs/install-plugin.log
@@ -147,7 +147,7 @@ jobs:
         run: mkdir -p logs
 
       - name: Download Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: smart-doc-maven-plugin-jar
           path: ./artifacts
@@ -236,7 +236,7 @@ jobs:
           esac
 
       - name: Upload ${{ matrix.doc_type }} API Documentation
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.doc_type }}-api-doc
           path: ${{ github.workspace }}/target/doc/
@@ -244,7 +244,7 @@ jobs:
 
       - name: Upload ${{ matrix.doc_type }} API Documentation Logs
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: error-log-${{ matrix.doc_type }}-api-docs
           path: logs
@@ -277,7 +277,7 @@ jobs:
         shell: bash
 
       - name: Download Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: smart-doc-maven-plugin-jar
           path: ./artifacts
@@ -328,7 +328,7 @@ jobs:
         shell: bash
 
       - name: Upload gRPC API Documentation
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: gRPC-api-doc-${{ runner.os }}
           path: ${{ github.workspace }}/target/doc/
@@ -336,7 +336,7 @@ jobs:
 
       - name: Upload ${{ runner.os }} gRPC API Documentation Log
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: error-log-${{ runner.os }}-grpc-api-doc
           path: logs
