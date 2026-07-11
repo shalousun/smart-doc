@@ -187,7 +187,7 @@ public interface IWebSocketTemplate {
 		webSocketDoc.setName(javaClass.getName());
 		webSocketDoc.setUri(replaceHttpPrefixToWebSocketPrefix(apiConfig.getServerUrl()) + serverEndpoint.getUrl());
 		webSocketDoc.setPackageName(javaClass.getPackage().getName());
-		webSocketDoc.setDesc(DocUtil.getEscapeAndCleanComment(javaClass.getComment()));
+		webSocketDoc.setDesc(DocUtil.getCommentFirstLine(javaClass.getComment()));
 		webSocketDoc.setAuthor(JavaClassUtil.getClassTagsValue(javaClass, DocTags.AUTHOR, Boolean.TRUE));
 		webSocketDoc.setOrder(order);
 		boolean isDeprecated = Objects.nonNull(javaClass.getTagByName(DocTags.DEPRECATED)) || javaClass.getAnnotations()

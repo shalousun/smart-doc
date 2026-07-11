@@ -146,7 +146,9 @@
         <%}%>
         <div class="paragraph" id="${doc.methodId}-content-type" data-content-type="${doc.contentType}"><p><strong>Content-Type:</strong>&nbsp;${doc.contentType}
         </p></div>
+<%if(isNotEmpty(doc.detail)){%>
         <div class="paragraph"><p><strong>Description:</strong>&nbsp;${htmlEscape(doc.detail)}</p></div>
+        <%}%>
         <%if(isNotEmpty(doc.requestHeaders)&&displayRequestParams){%>
         <div class="paragraph"><p><strong>Request-headers:</strong></p></div>
         <table class="tableblock frame-all grid-all spread">

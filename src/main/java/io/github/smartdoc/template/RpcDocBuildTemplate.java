@@ -204,7 +204,7 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IWebSo
 			String name = DocUtil.generateId(apiDoc.getName());
 			apiDoc.setAlias(name);
 		}
-		apiDoc.setDesc(DocUtil.getEscapeAndCleanComment(comment));
+		apiDoc.setDesc(DocUtil.getCommentFirstLine(comment));
 		apiDoc.setList(apiMethodDocs);
 
 		List<JavaAnnotation> annotations = cls.getAnnotations();

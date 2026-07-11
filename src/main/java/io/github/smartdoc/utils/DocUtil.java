@@ -1002,6 +1002,31 @@ public class DocUtil {
 	}
 
 	/**
+	 * Gets the first line of a Javadoc comment as plain text (HTML tags stripped), for
+	 * use as a title/heading. Javadoc convention: the first line is the summary/title,
+	 * and subsequent lines provide the detailed description.
+	 * @param comment the full Javadoc comment (may contain HTML)
+	 * @return the first non-empty line with HTML tags removed, or empty string if
+	 * null/empty
+	 */
+	public static String getCommentFirstLine(String comment) {
+		if (StringUtil.isEmpty(comment)) {
+			return "";
+		}
+		String trimmed = comment.trim();
+		int newlineIndex = trimmed.indexOf('\n');
+		String firstLine;
+		if (newlineIndex > 0) {
+			firstLine = trimmed.substring(0, newlineIndex).trim();
+		}
+		else {
+			firstLine = trimmed;
+		}
+		// Strip HTML tags to produce pure text title
+		return firstLine.replaceAll("<[^>]*>", "").trim();
+	}
+
+	/**
 	 * Get the url from 'value' or 'path' attribute
 	 * @param classLoader classLoader
 	 * @param annotation RequestMapping GetMapping PostMapping etc.
