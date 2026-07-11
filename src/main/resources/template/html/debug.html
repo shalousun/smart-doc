@@ -17,6 +17,39 @@
   .hljs {
     padding: 0em
   }</style>
+  <style>
+    #server-url-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #server-url-row strong {
+      margin-right: 10px;
+      font-size: 14px;
+    }
+    #smart-doc-server-url {
+      flex: 1;
+      max-width: 400px;
+      padding: 6px 4px;
+      border: 0;
+      background: transparent;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+      transition: background 0.2s;
+      cursor: text;
+    }
+    #smart-doc-server-url:hover {
+      background: #f5f5f5;
+    }
+    #smart-doc-server-url:focus {
+      background: #fafafa;
+    }
+    #smart-doc-server-url::placeholder {
+      color: #ccc;
+      font-style: italic;
+    }
+  </style>
   <script src="highlight.min.js"></script>
   <script src="jquery.min.js"></script>
 </head>
@@ -63,6 +96,12 @@
   </div>
 </div>
 <div id="content">
+  <div id="server-url-row">
+    <strong>Server URL:</strong>
+    <input id="smart-doc-server-url" type="text"
+           placeholder="http://localhost:8080"
+           title="Click to edit server address"/>
+  </div>
   <div class="sect1"><h2 id="_${desc}"><a class="anchor" href="#_${desc}"></a><a class="link" href="#_${desc}">${order}.&nbsp;${desc}</a>
   </h2>
     <div class="sectionbody"><%for(doc in list){%>
@@ -73,7 +112,7 @@
                                                                               href="#_${order}_${doc.order}_${doc.desc}">${order}.${doc.order}.&nbsp;${htmlEscape(doc.desc)}</a><%}%>
       </h3>
         <div class="paragraph" data-download="${doc.download}" data-page="${doc.page}" data-url="${doc.url}"
-             id="${doc.methodId}-url"><p><strong>URL:</strong><a class="bare" href="${doc.url}">&nbsp;${doc.url}</a></p>
+             id="${doc.methodId}-url"><p><strong>URL:</strong><a class="bare" href="${doc.url}">&nbsp;${doc.path}</a></p>
         </div>
         <div class="paragraph" data-method="${doc.type}" id="${doc.methodId}-method"><p><strong>Type:</strong>&nbsp;${doc.type}
         </p></div>

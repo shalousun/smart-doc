@@ -36,6 +36,43 @@ $("[contenteditable=plaintext-only]").on('blur', function (e) {
     const highlightedCode = hljs.highlight('json', content).value;
     $this.html(highlightedCode);
 })
+// Server URL management
+const SERVER_URL_STORAGE_KEY = 'smart-doc-server-url';
+
+function getServerUrl() {
+    var $input = $('#smart-doc-server-url');
+    if ($input.length && $input.val().trim()) {
+        return $input.val().trim().replace(/\/+$/, '');
+    }
+    return '';
+}
+
+function resolveUrl(originalUrl) {
+    var serverUrl = getServerUrl();
+    if (!serverUrl || !originalUrl) return originalUrl;
+    // originalUrl may contain multiple URLs separated by semicolon
+    return originalUrl.split(';').map(function (u) {
+        u = u.trim();
+        if (!u) return u;
+        try {
+            var parsed = new URL(u);
+            return serverUrl + parsed.pathname + parsed.search + parsed.hash;
+        } catch (e) {
+            return serverUrl + '/' + u.replace(/^\//, '');
+        }
+    }).join(';');
+}
+
+$(function () {
+    var savedUrl = localStorage.getItem(SERVER_URL_STORAGE_KEY);
+    if (savedUrl) {
+        $('#smart-doc-server-url').val(savedUrl);
+    }
+    $('#smart-doc-server-url').on('change input', function () {
+        localStorage.setItem(SERVER_URL_STORAGE_KEY, $(this).val().trim());
+    });
+});
+
 $("button").on("click", function () {
     const $this = $(this);
     const id = $this.data("id");
@@ -58,9 +95,9 @@ $("button").on("click", function () {
     // query param
     const $queryElement = $("#" + id + "-query-params")
     let $urlDataElement = $("#" + id + "-url");
-    const url = $urlDataElement.data("url");
+    const url = resolveUrl($urlDataElement.data("url"));
     const isDownload = $urlDataElement.data("download");
-    const page = $urlDataElement.data("page");
+    const page = resolveUrl($urlDataElement.data("page"));
     const method = $("#" + id + "-method").data("method");
     const contentType = $("#" + id + "-content-type").data("content-type");
     console.log("request-headers=>" + JSON.stringify(headersData))
