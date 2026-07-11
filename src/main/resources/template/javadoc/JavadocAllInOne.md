@@ -40,7 +40,9 @@
 **Author:** ${doc.author}
 <%}%>
 
+<%if(isNotEmpty(doc.detail)){%>
 **Description:** ${doc.detail}
+<%}%>
 
 <%if(isNotEmpty(doc.requestParams)){%>
 **Invoke-parameters:**

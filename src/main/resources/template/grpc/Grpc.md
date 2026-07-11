@@ -26,7 +26,9 @@
 **Author:** ${doc.author}
 <%}%>
 
+<%if(isNotEmpty(doc.detail)){%>
 **Description:** ${doc.detail}
+<%}%>
 
 **MethodType:** ${doc.methodType}
 

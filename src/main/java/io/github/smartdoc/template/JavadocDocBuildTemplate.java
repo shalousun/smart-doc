@@ -181,7 +181,7 @@ public class JavadocDocBuildTemplate implements IDocBuildTemplate<JavadocApiDoc>
 			String name = DocUtil.generateId(apiDoc.getName());
 			apiDoc.setAlias(name);
 		}
-		apiDoc.setDesc(DocUtil.getEscapeAndCleanComment(comment));
+		apiDoc.setDesc(DocUtil.getCommentFirstLine(comment));
 		apiDoc.setList(apiMethodDocs);
 
 		List<DocletTag> docletTags = cls.getTags();

@@ -121,7 +121,9 @@
                                                                               href="#_${api.order+1}_${doc.order}_${doc.desc}">${api.order+1}.${doc.order}.&nbsp;${htmlEscape(doc.desc)}</a><%}%>
       </h3>
         <div class="paragraph"><p><strong>Definition:</strong>&nbsp;${doc.escapeMethodDefinition}</p></div>
+<%if(isNotEmpty(doc.detail)){%>
         <div class="paragraph"><p><strong>Description:</strong>&nbsp;${doc.detail}</p></div>
+        <%}%>
         <%if(isNotEmpty(doc.requestParams)){%>
         <div class="paragraph"><p><strong>Invoke-parameters:</strong></p></div>
         <table class="tableblock frame-all grid-all spread">

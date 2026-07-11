@@ -88,7 +88,9 @@
                                                                               href="#_${api.order}_${doc.order}_${htmlEscape(doc.desc)}">${api.order}.${doc.order}.&nbsp;${htmlEscape(doc.desc)}</a><%}%>
       </h3>
         <div class="paragraph"><p><strong>Definition:</strong>&nbsp;${doc.escapeMethodDefinition}</p></div>
+<%if(isNotEmpty(doc.detail)){%>
         <div class="paragraph"><p><strong>Description:</strong>&nbsp;${doc.detail}</p>
+          <%}%>
           <div class="paragraph"><p><strong>MethodType:</strong>&nbsp;${doc.methodType}</p></div>
           <%if(isNotEmpty(doc.requestParams)){%>
           <div class="paragraph"><p><strong>Invoke-parameters:</strong></p></div>

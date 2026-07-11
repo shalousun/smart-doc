@@ -283,10 +283,10 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 			String name = DocUtil.generateId(apiDoc.getName());
 			apiDoc.setAlias(name);
 		}
-		String desc = DocUtil.getEscapeAndCleanComment(cls.getComment());
+		String desc = DocUtil.getCommentFirstLine(cls.getComment());
 		String detail = JavaClassUtil.getClassTagsValue(cls, DocTags.API_NOTE, Boolean.TRUE);
 		if (StringUtil.isEmpty(detail)) {
-			detail = desc;
+			detail = cls.getComment();
 		}
 		apiDoc.setDesc(StringUtil.isEmpty(desc) ? controllerName : desc);
 		apiDoc.setDetail(detail);
@@ -823,7 +823,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 			methodOrder++;
 			apiMethodDoc.setOrder(methodOrder);
 			apiMethodDoc.setName(method.getName());
-			String common = method.getComment();
+			String common = DocUtil.getCommentFirstLine(method.getComment());
 			if (StringUtil.isEmpty(common)) {
 				common = JavaClassUtil.getSameSignatureMethodCommonFromInterface(cls, method);
 			}
@@ -1758,7 +1758,7 @@ public interface IRestDocTemplate extends IBaseDocBuildTemplate {
 			docJavaMethod.setAuthor(classAuthor);
 		}
 
-		String comment = DocUtil.getEscapeAndCleanComment(method.getComment());
+		String comment = DocUtil.getCommentFirstLine(method.getComment());
 		docJavaMethod.setDesc(comment);
 		String version = DocUtil.getNormalTagComments(method, DocTags.SINCE, cls.getName());
 		docJavaMethod.setVersion(version);

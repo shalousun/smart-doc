@@ -43,7 +43,9 @@ for(doc in api.list){
 
 **Content-Type:** ${doc.contentType}
 
+<%if(isNotEmpty(doc.detail)){%>
 **Description:** ${doc.detail}
+<%}%>
 <%if(isNotEmpty(doc.requestHeaders)){%>
 
 **Request-headers:**

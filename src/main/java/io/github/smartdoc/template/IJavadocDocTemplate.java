@@ -99,7 +99,7 @@ public interface IJavadocDocTemplate<T extends JavadocJavaMethod> extends IBaseD
 
 		javadocJavaMethod.setMethodDefinition(methodDefine);
 		javadocJavaMethod.setEscapeMethodDefinition(scapeMethod);
-		javadocJavaMethod.setDesc(DocUtil.getEscapeAndCleanComment(method.getComment()));
+		javadocJavaMethod.setDesc(DocUtil.getCommentFirstLine(method.getComment()));
 		// set detail
 		String apiNoteValue = DocUtil.getNormalTagComments(method, DocTags.API_NOTE, cls.getName());
 		if (StringUtil.isEmpty(apiNoteValue)) {
