@@ -1,6 +1,6 @@
 <h1 align="center">Smart-Doc Project</h1>
 
-![maven](https://img.shields.io/maven-central/v/com.ly.smart-doc/smart-doc)
+![maven](https://img.shields.io/maven-central/v/com.github.shalousun/smart-doc)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![number of issues closed](https://img.shields.io/github/issues-closed-raw/smart-doc-group/smart-doc)
 ![closed pull requests](https://img.shields.io/github/issues-pr-closed/smart-doc-group/smart-doc)
@@ -55,6 +55,10 @@ You could build with the following commands. (`JDK 1.8` is required to build the
 ```
 mvn clean install -Dmaven.test.skip=true
 ```
+
+## Contributing
+
+Contributions are welcome! Please refer to the [Contributing Guide](https://smart-doc-group.github.io/guide/community/contributing) to get started.
 
 ## Who is using
 
