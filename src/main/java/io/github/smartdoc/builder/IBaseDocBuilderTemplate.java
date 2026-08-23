@@ -85,7 +85,6 @@ public interface IBaseDocBuilderTemplate<T extends IDoc> {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<T> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		return docBuildTemplate.getApiData(configBuilder).getApiDatas();
 	}
 

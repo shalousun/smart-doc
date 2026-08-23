@@ -44,7 +44,6 @@ import org.beetl.core.Template;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * java doc build template.
@@ -170,7 +169,6 @@ public class JavadocDocBuilderTemplate implements IBaseDocBuilderTemplate<Javado
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<JavadocApiDoc> docBuildTemplate = BuildTemplateFactory
 			.getDocBuildTemplate(config.getFramework(), config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		ApiSchema<JavadocApiDoc> apiSchema = docBuildTemplate.getApiData(configBuilder);
 		return apiSchema.getApiDatas();
 	}
@@ -186,7 +184,6 @@ public class JavadocDocBuilderTemplate implements IBaseDocBuilderTemplate<Javado
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<JavadocApiDoc> docBuildTemplate = BuildTemplateFactory
 			.getDocBuildTemplate(config.getFramework(), config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		return docBuildTemplate.getApiData(configBuilder).getApiDatas();
 	}
 

@@ -29,7 +29,6 @@ import io.github.smartdoc.template.IDocBuildTemplate;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Use to create Asciidoc
@@ -77,7 +76,6 @@ public class AdocDocBuilder {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		List<ApiDoc> apiDocList = docBuildTemplate.getApiData(configBuilder).getApiDatas();
 		if (config.isAllInOne()) {
 			String docName = builderTemplate.allInOneDocName(config, INDEX_DOC, DocGlobalConstants.ASCIIDOC_EXTENSION);

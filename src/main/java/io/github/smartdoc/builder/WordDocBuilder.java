@@ -34,7 +34,6 @@ import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.beetl.core.Template;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Word doc builder
@@ -94,7 +93,6 @@ public class WordDocBuilder {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		ApiSchema<ApiDoc> apiSchema = docBuildTemplate.getApiData(configBuilder);
 		List<ApiDoc> apiDocList = apiSchema.getApiDatas();
 

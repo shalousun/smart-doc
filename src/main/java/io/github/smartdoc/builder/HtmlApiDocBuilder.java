@@ -33,7 +33,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.beetl.core.Template;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * HTML API Doc Builder
@@ -86,7 +85,6 @@ public class HtmlApiDocBuilder {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		List<ApiDoc> apiDocList = docBuildTemplate.getApiData(configBuilder).getApiDatas();
 		builderTemplate.copyJQueryAndCss(config);
 		if (config.isAllInOne()) {

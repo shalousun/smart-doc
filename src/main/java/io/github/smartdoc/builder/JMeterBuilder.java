@@ -32,7 +32,6 @@ import com.power.common.util.StringUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * used to generate jmx file for Jmeter
@@ -75,7 +74,6 @@ public class JMeterBuilder {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		List<ApiDoc> apiDocList = docBuildTemplate.getApiData(configBuilder).getApiDatas();
 		String version = config.isCoverOld() ? "" : "-V"
 				+ DateTimeUtil.long2Str(System.currentTimeMillis(), DocGlobalConstants.DATE_FORMAT_YYYY_MM_DD_HH_MM);

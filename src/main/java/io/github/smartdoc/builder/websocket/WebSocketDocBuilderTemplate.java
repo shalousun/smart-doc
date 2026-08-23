@@ -42,7 +42,6 @@ import org.beetl.core.Template;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * WebSocket doc builder template.
@@ -81,7 +80,6 @@ public class WebSocketDocBuilderTemplate implements IBaseDocBuilderTemplate<WebS
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IWebSocketDocBuildTemplate<WebSocketDoc> webSocketDocBuildTemplate = BuildTemplateFactory
 			.getWebSocketDocBuildTemplate(config.getFramework(), config.getClassLoader());
-		Objects.requireNonNull(webSocketDocBuildTemplate, "doc build websocket template is null");
 		return webSocketDocBuildTemplate.getWebSocketData(configBuilder);
 	}
 

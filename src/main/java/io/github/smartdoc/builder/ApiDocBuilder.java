@@ -30,7 +30,6 @@ import com.power.common.util.DateTimeUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * use to create Markdown doc
@@ -67,7 +66,6 @@ public class ApiDocBuilder {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		List<ApiDoc> apiDocList = docBuildTemplate.getApiData(configBuilder).getApiDatas();
 		if (config.isAllInOne()) {
 			String version = config.isCoverOld() ? "" : "-V" + DateTimeUtil.long2Str(System.currentTimeMillis(),

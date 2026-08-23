@@ -428,7 +428,6 @@ public class DocBuilderTemplate implements IBaseDocBuilderTemplate<ApiDoc> {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		return docBuildTemplate.getApiData(configBuilder).getApiDatas();
 	}
 

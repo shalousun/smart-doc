@@ -645,7 +645,6 @@ public abstract class AbstractOpenApiBuilder {
 		config.setParamsDataToTree(true);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		return docBuildTemplate.getApiData(configBuilder);
 	}
 

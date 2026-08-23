@@ -36,7 +36,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static io.github.smartdoc.constants.TornaConstants.DEFAULT_GROUP_CODE;
 
@@ -154,7 +153,6 @@ public class TornaBuilder {
 		ProjectDocConfigBuilder configBuilder = new ProjectDocConfigBuilder(config, javaProjectBuilder);
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		ApiSchema<ApiDoc> apiSchema = docBuildTemplate.getApiData(configBuilder);
 		return docBuildTemplate.handleApiGroup(apiSchema.getApiDatas(), config);
 	}

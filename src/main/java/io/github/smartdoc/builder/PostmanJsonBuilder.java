@@ -50,7 +50,6 @@ import com.thoughtworks.qdox.JavaProjectBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -278,7 +277,6 @@ public class PostmanJsonBuilder {
 	private static void postManCreate(ApiConfig config, ProjectDocConfigBuilder configBuilder) {
 		IDocBuildTemplate<ApiDoc> docBuildTemplate = BuildTemplateFactory.getDocBuildTemplate(config.getFramework(),
 				config.getClassLoader());
-		Objects.requireNonNull(docBuildTemplate, "doc build template is null");
 		config.setShowJavaType(true);
 		List<ApiDoc> apiDocList = docBuildTemplate.getApiData(configBuilder).getApiDatas();
 		apiDocList = docBuildTemplate.handleApiGroup(apiDocList, config);
