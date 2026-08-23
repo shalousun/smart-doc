@@ -1,7 +1,7 @@
 /*
  * smart-doc https://github.com/smart-doc-group/smart-doc
  *
- * Copyright (C) 2018-2025 smart-doc
+ * Copyright (C) 2018-2026 smart-doc
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
