@@ -178,8 +178,7 @@ public class DependencyTree {
 		}
 
 		private static String readFile(File configFile) {
-			try {
-				BufferedReader reader = new BufferedReader(new FileReader(configFile));
+			try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
 				StringBuilder builder = new StringBuilder();
 				String line;
 				while ((line = reader.readLine()) != null) {

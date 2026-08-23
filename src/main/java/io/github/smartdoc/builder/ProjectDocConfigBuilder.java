@@ -283,7 +283,6 @@ public class ProjectDocConfigBuilder {
 	 * @param builder builder
 	 */
 	public void loadJarJavaSource(String path, JavaProjectBuilder builder) {
-		OutputStream out;
 		if (!path.endsWith(".jar")) {
 			return;
 		}
@@ -293,18 +292,17 @@ public class ProjectDocConfigBuilder {
 			while (entryEnumeration.hasMoreElements()) {
 				JarEntry entry = entryEnumeration.nextElement();
 				if (entry.getName().endsWith(".java")) {
-					InputStream is = jarFile.getInputStream(entry);
 					File file = new File(DocGlobalConstants.JAR_TEMP + entry.getName());
 					if (!file.exists()) {
 						file.getParentFile().mkdirs();
 					}
-					out = Files.newOutputStream(file.toPath());
-					int len;
-					while ((len = is.read()) != -1) {
-						out.write(len);
+					try (InputStream is = jarFile.getInputStream(entry);
+							OutputStream out = Files.newOutputStream(file.toPath())) {
+						int len;
+						while ((len = is.read()) != -1) {
+							out.write(len);
+						}
 					}
-					is.close();
-					out.close();
 				}
 			}
 			File file = new File(DocGlobalConstants.JAR_TEMP);

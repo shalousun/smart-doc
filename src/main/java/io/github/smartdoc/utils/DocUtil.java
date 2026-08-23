@@ -98,6 +98,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.TimeZone;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -288,12 +289,12 @@ public class DocUtil {
 	/**
 	 * Cache the regex and its pattern object
 	 */
-	private static final Map<String, Pattern> PATTERN_CACHE = new HashMap<>();
+	private static final Map<String, Pattern> PATTERN_CACHE = new ConcurrentHashMap<>();
 
 	/**
 	 * "packageFilters" cache
 	 */
-	private static final Map<String, Set<String>> FILTER_METHOD_CACHE = new HashMap<>();
+	private static final Map<String, Set<String>> FILTER_METHOD_CACHE = new ConcurrentHashMap<>();
 
 	/**
 	 * Generate a random value based on java type name.
@@ -1882,33 +1883,32 @@ public class DocUtil {
 		InputStream resourceAsStream = WordDocBuilder.class.getClassLoader().getResourceAsStream(templateDocx);
 		Objects.requireNonNull(resourceAsStream, "word template docx is not found");
 
-		ZipInputStream zipInputStream = new ZipInputStream(resourceAsStream);
-		ZipOutputStream zipOutputStream = new ZipOutputStream(Files.newOutputStream(Paths.get(docxOutputPath)));
-		// Traverse the files in the compressed package
-		ZipEntry entry;
-		while ((entry = zipInputStream.getNextEntry()) != null) {
-			String entryName = entry.getName();
-			// copy fix the bug: invalid entry compressed size
-			zipOutputStream.putNextEntry(new ZipEntry(entryName));
-			if ("word/document.xml".equals(entryName)) {
-				byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
-				zipOutputStream.write(bytes, 0, bytes.length);
-			}
-			else {
-				// copy
-				byte[] buffer = new byte[1024];
-				int len;
-				while ((len = zipInputStream.read(buffer)) > 0) {
-					zipOutputStream.write(buffer, 0, len);
+		try (ZipInputStream zipInputStream = new ZipInputStream(resourceAsStream);
+				ZipOutputStream zipOutputStream = new ZipOutputStream(
+						Files.newOutputStream(Paths.get(docxOutputPath)))) {
+			// Traverse the files in the compressed package
+			ZipEntry entry;
+			while ((entry = zipInputStream.getNextEntry()) != null) {
+				String entryName = entry.getName();
+				// copy fix the bug: invalid entry compressed size
+				zipOutputStream.putNextEntry(new ZipEntry(entryName));
+				if ("word/document.xml".equals(entryName)) {
+					byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
+					zipOutputStream.write(bytes, 0, bytes.length);
 				}
+				else {
+					// copy
+					byte[] buffer = new byte[1024];
+					int len;
+					while ((len = zipInputStream.read(buffer)) > 0) {
+						zipOutputStream.write(buffer, 0, len);
+					}
+				}
+
+				zipOutputStream.closeEntry();
+				zipInputStream.closeEntry();
 			}
-
-			zipOutputStream.closeEntry();
-			zipInputStream.closeEntry();
 		}
-
-		zipInputStream.close();
-		zipOutputStream.close();
 	}
 
 }

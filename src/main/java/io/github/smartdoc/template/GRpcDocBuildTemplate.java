@@ -531,7 +531,13 @@ public class GRpcDocBuildTemplate implements IDocBuildTemplate<GrpcApiDoc>, IJav
 
 		@Override
 		public void run() {
-			new BufferedReader(new InputStreamReader(inputStream)).lines().forEach(consumer);
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+					Stream<String> lines = reader.lines()) {
+				lines.forEach(consumer);
+			}
+			catch (IOException e) {
+				// ignore: the process stream is no longer readable once the process exits
+			}
 		}
 
 	}

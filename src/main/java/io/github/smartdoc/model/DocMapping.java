@@ -37,7 +37,7 @@ public class DocMapping {
 	/**
 	 * key:tag value:ApiDoc
 	 */
-	public static Map<String, TagDoc> TAG_DOC = new ConcurrentHashMap<>(64);
+	private static final Map<String, TagDoc> TAG_DOC = new ConcurrentHashMap<>(64);
 
 	public static void tagDocPut(String tag, ApiDoc apiDoc, ApiMethodDoc methodDoc) {
 		if (StringUtils.isBlank(tag)) {
@@ -55,7 +55,11 @@ public class DocMapping {
 	}
 
 	public static void init() {
-		TAG_DOC = new ConcurrentHashMap<>(64);
+		TAG_DOC.clear();
+	}
+
+	public static Map<String, TagDoc> getTagDocMap() {
+		return TAG_DOC;
 	}
 
 }
