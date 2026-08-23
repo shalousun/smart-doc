@@ -395,7 +395,7 @@ public class DocUtil {
 		String[] patterns = packageFilters.split(",");
 		for (String str : patterns) {
 			if (str.contains("*")) {
-				Pattern pattern = Pattern.compile(str);
+				Pattern pattern = getPattern(str);
 				if (pattern.matcher(controllerName).matches()) {
 					return true;
 				}
