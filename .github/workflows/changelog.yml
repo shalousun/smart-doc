@@ -1,0 +1,70 @@
+name: Update CHANGELOG
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to add (for example 4.0.2). Leave blank to use the event release.'
+        required: false
+        type: string
+
+# Only the upstream release pipeline may write to the default branch. Forks
+# never run this workflow, and a PR that adds or edits it cannot push either.
+concurrency:
+  group: changelog-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: ${{ github.repository == 'smart-doc-group/smart-doc' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v5
+        with:
+          ref: master
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Generate CHANGELOG section
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
+        run: |
+          if [ -z "$RELEASE_TAG" ]; then
+            echo "error: no release tag resolved" >&2
+            exit 1
+          fi
+          python scripts/changelog/generate_changelog.py \
+            --repo "$GITHUB_REPOSITORY" \
+            --tag "$RELEASE_TAG" \
+            --changelog CHANGELOG.md \
+            --dry-run
+          python scripts/changelog/generate_changelog.py \
+            --repo "$GITHUB_REPOSITORY" \
+            --tag "$RELEASE_TAG" \
+            --changelog CHANGELOG.md
+
+      - name: Commit and push
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- CHANGELOG.md; then
+            echo "CHANGELOG unchanged (section already present); nothing to commit."
+            exit 0
+          fi
+          git add CHANGELOG.md
+          git commit -m "docs: :memo: add CHANGELOG section for $RELEASE_TAG"
+          git push origin HEAD:master
